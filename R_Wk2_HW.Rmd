@@ -1,0 +1,67 @@
+---
+author: "Liam Byrne"
+date: "July 24, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### R Bridge - Week 2 Assignment:
+*Implement code to calculate $\binom{n}{r} = \frac{n!}{(n-r)!-r!}$*
+
+#### n_choose_r
+The function checks that n and r are positive integers and that n > r. Outside of structuring the equation and checking for erroneous inputs, **calc_fact** will do most of the heavy lifting.
+
+```{r tidy = TRUE}
+n_choose_r <- function(n = 0, r = 0) {
+    if (n != round(n) || r != round(r) || r < 0 || n < 0 || r > n) {
+        return("Undefined: n & r must be positive integers and n must be greater than r")
+    } else {
+        return (calc_fact(n) / (calc_fact(n-r) * calc_fact(r)))
+    }
+}
+
+```
+
+#### calc_fact
+The funciton uses recursion to calcualte the factorial of "n". Ideally, this should be a private funciton as it is assumed that **n_choose_r** is the one having access to it after having checked for possible errors in the input.
+```{r}
+calc_fact <- function(n) {
+    if (n < 2) {
+        return (1)
+    } else {
+        return (n * calc_fact(n - 1))
+    }
+}
+```
+
+#### Examples:
+```{r}
+# --------- Test Cases ---------
+# r > n
+n <- 3
+r <- 52
+sprintf("%s!/(%s-%s)!*%s! = %s.", n, n, r, r, n_choose_r(n,r))
+
+# n < 0
+n <- -52
+r <- 3
+sprintf("%s!/(%s-%s)!*%s! = %s.", n, n, r, r, n_choose_r(n,r))
+
+# Combos of a five card hand
+n <- 52
+r <- 5
+sprintf("%s!/(%s-%s)!*%s! = %s.", n, n, r, r, n_choose_r(n,r))
+
+# Combos of creating a group of 5 out of 12 people
+n <- 12
+r <- 5
+sprintf("%s!/(%s-%s)!*%s! = %s.", n, n, r, r, n_choose_r(n,r))
+```
+
+```{r}
+
+```
+
