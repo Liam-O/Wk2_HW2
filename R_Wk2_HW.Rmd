@@ -60,8 +60,3 @@ n <- 12
 r <- 5
 sprintf("%s!/(%s-%s)!*%s! = %s.", n, n, r, r, n_choose_r(n,r))
 ```
-
-```{r}
-
-```
-
